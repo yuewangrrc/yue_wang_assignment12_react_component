@@ -1,22 +1,13 @@
-# Dockerfile
-
-# 使用官方 Node.js 镜像作为基础镜像
-FROM node:18
-
-# 设置工作目录
-WORKDIR /yue_wang_site
-
-# 将 package.json 和 package-lock.json 复制到容器
-COPY yue_wang_site/package*.json ./
-
-# 安装依赖
+FROM node:14-alpine AS development
+ENV NODE_ENV development
+# Add a work directory
+WORKDIR /wang_yue_ui_garden
+# Cache and Install dependencies
+COPY wang_yue_ui_garden/package*.json .
 RUN npm install
-
-# 复制剩余的项目文件
-COPY yue_wang_site/ .
-
-# 设置容器监听端口
-EXPOSE 7775
-
-# 启动开发服务器
-CMD ["npm", "start"]
+# Copy app files
+COPY wang_yue_ui_garden/. .
+# Expose port
+EXPOSE 3000
+# Start the app
+CMD [ "npm", "start" ]

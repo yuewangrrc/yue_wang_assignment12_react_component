@@ -1,0 +1,12 @@
+
+services:
+  app:
+    container_name: wang_yue_coding_assignment12
+    image: wang_yue_coding_assignment12
+    build:
+      context: .
+      target: development
+    volumes:
+      - ./wang_yue_ui_garden/src:/wang_yue_ui_garden/src 
+    ports:
+      - 8083:3000
