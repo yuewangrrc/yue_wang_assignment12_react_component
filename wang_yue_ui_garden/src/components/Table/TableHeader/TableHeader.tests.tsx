@@ -5,7 +5,7 @@ import TableHeader from './TableHeader';
 import TableRow from '../TableRow/TableRow';
 import TableCell from '../TableCell/TableCell';
 
-const renderTableHeader = (props = {}) => {
+const renderTableHeader = (props: { children: React.ReactNode } & Record<string, any>) => {
   return render(
     <table>
       <TableHeader {...props} />

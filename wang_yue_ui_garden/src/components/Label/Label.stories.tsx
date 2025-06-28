@@ -187,7 +187,7 @@ export const CustomColors = {
 export const FormExample = () => (
   <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', maxWidth: '300px' }}>
     <div>
-      <Label variant="required" htmlFor="email">Email Address</Label>
+      <Label required htmlFor="email">Email Address</Label>
       <input 
         id="email" 
         type="email" 
@@ -201,7 +201,7 @@ export const FormExample = () => (
       />
     </div>
     <div>
-      <Label variant="optional" htmlFor="phone">Phone Number</Label>
+      <Label htmlFor="phone">Phone Number</Label>
       <input 
         id="phone" 
         type="tel" 
@@ -235,8 +235,8 @@ export const FormExample = () => (
 export const AllVariants = () => (
   <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
     <Label variant="default">Default Label</Label>
-    <Label variant="required">Required Field Label</Label>
-    <Label variant="optional">Optional Field Label</Label>
+    <Label required>Required Field Label</Label>
+    <Label>Optional Field Label</Label>
     <Label disabled>Disabled Label</Label>
   </div>
 );
@@ -256,7 +256,7 @@ export const ForFormField = {
     htmlFor: 'email-input',
     required: true,
   },
-  render: (args) => (
+  render: (args: any) => (
     <div>
       <Label {...args} />
       <br />

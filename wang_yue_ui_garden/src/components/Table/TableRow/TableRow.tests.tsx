@@ -4,11 +4,13 @@ import '@testing-library/jest-dom';
 import TableRow from './TableRow';
 import TableCell from '../TableCell/TableCell';
 
-const renderTableRow = (props = {}) => {
+const renderTableRow = (props: any = {}) => {
   return render(
     <table>
       <tbody>
-        <TableRow {...props} />
+        <TableRow {...props}>
+          {props.children ?? null}
+        </TableRow>
       </tbody>
     </table>
   );

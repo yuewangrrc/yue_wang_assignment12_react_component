@@ -1,5 +1,7 @@
 import React from 'react';
 import Card from './Card';
+import Text from '../Text/Text';
+import Button from '../Button/Button';
 import type { Meta, StoryObj } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
 

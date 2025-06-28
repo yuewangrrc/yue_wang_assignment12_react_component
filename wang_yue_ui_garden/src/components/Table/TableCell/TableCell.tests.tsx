@@ -3,12 +3,13 @@ import { render, screen, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import TableCell from './TableCell';
 
-const renderTableCell = (props = {}) => {
+const renderTableCell = (props: any = {}) => {
+  const { children = 'Default Cell', ...rest } = props;
   return render(
     <table>
       <tbody>
         <tr>
-          <TableCell {...props} />
+          <TableCell {...rest}>{children}</TableCell>
         </tr>
       </tbody>
     </table>

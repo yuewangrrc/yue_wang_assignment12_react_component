@@ -25,17 +25,27 @@ export interface LabelProps {
   size?: 'small' | 'medium' | 'large';
   
   /**
-   * The variant of the label
+   * The variant/style of the label
    */
-  variant?: 'default' | 'required' | 'optional';
+  variant?: 'default' | 'primary' | 'secondary' | 'success' | 'warning' | 'danger';
   
   /**
-   * HTML for attribute to associate with form element
+   * Click handler for the label
    */
-  htmlFor?: string;
+  onClick?: () => void;
   
   /**
    * Additional CSS class names
    */
   className?: string;
+  
+  /**
+   * The HTML element to render for the label
+   */
+  htmlFor?: string;
+  
+  /**
+   * Whether the label is required (shows asterisk)
+   */
+  required?: boolean;
 }

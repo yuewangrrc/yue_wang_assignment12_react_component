@@ -5,10 +5,12 @@ import TableFooter from './TableFooter';
 import TableRow from '../TableRow/TableRow';
 import TableCell from '../TableCell/TableCell';
 
-const renderTableFooter = (props = {}) => {
+const renderTableFooter = (props: any = {}) => {
   return render(
     <table>
-      <TableFooter {...props} />
+      <TableFooter {...props}>
+        {props.children}
+      </TableFooter>
     </table>
   );
 };

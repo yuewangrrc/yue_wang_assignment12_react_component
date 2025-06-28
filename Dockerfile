@@ -1,13 +1,20 @@
-FROM node:14-alpine AS development
-ENV NODE_ENV development
-# Add a work directory
+# Development stage - Node.js 18 for Storybook compatibility
+FROM node:18-alpine
+
+# Set working directory as per requirements
 WORKDIR /wang_yue_ui_garden
-# Cache and Install dependencies
-COPY wang_yue_ui_garden/package*.json .
-RUN npm install
-# Copy app files
-COPY wang_yue_ui_garden/. .
-# Expose port
-EXPOSE 3000
-# Start the app
-CMD [ "npm", "start" ]
+
+# Copy package files
+COPY wang_yue_ui_garden/package*.json ./
+
+# Install dependencies with legacy peer deps to resolve conflicts
+RUN npm install --legacy-peer-deps
+
+# Copy source code
+COPY wang_yue_ui_garden/ ./
+
+# Expose port 8083 as required
+EXPOSE 8083
+
+# Start development server on port 8083
+CMD ["npm", "run", "start:storybook"]

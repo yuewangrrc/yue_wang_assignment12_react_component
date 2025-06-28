@@ -7,7 +7,7 @@ import terserPlugin from "@rollup/plugin-terser";
 
 export default [
   {
-    input: "src/index.ts",
+    input: "src/indexComponent.ts",
     output: [
       {
         file: "dist/index.js",
@@ -35,7 +35,6 @@ export default [
     ],
     external: ["react", "react-dom"],
     onwarn(warning, warn) {
-      // 忽略CSS和其他资源文件的警告
       if (warning.code === "UNRESOLVED_IMPORT" && warning.source.endsWith(".css"))
         return;
       if (warning.code === "UNRESOLVED_IMPORT" && warning.source.endsWith(".svg"))
@@ -43,7 +42,6 @@ export default [
       warn(warning);
     },
   },
-  // 暂时注释掉dts配置以测试其他部分
   // {
   //   input: "src/index.ts",
   //   output: [{ file: "dist/index.d.ts", format: "esm" }],

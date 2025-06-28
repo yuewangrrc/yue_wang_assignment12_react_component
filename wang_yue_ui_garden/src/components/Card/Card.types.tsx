@@ -20,19 +20,24 @@ export interface CardProps {
   borderColor?: string;
   
   /**
+   * The text color of the card
+   */
+  textColor?: string;
+  
+  /**
+   * The padding size of the card
+   */
+  padding?: 'small' | 'medium' | 'large';
+  
+  /**
    * Whether the card has a shadow
    */
   shadow?: boolean;
   
   /**
-   * Whether the card is hoverable
+   * Whether the card has hover effects
    */
   hoverable?: boolean;
-  
-  /**
-   * The padding inside the card
-   */
-  padding?: 'small' | 'medium' | 'large';
   
   /**
    * Click handler for the card

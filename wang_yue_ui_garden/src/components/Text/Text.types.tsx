@@ -22,12 +22,12 @@ export interface TextProps {
   /**
    * The size of the text
    */
-  size?: 'small' | 'medium' | 'large' | 'xlarge';
+  size?: 'xsmall' | 'small' | 'medium' | 'large' | 'xlarge';
   
   /**
    * The weight of the text
    */
-  weight?: 'normal' | 'bold' | 'light';
+  weight?: 'light' | 'normal' | 'medium' | 'semibold' | 'bold';
   
   /**
    * The alignment of the text
@@ -38,6 +38,21 @@ export interface TextProps {
    * HTML element to render as
    */
   as?: 'p' | 'span' | 'div' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
+  
+  /**
+   * Whether the text is italic
+   */
+  italic?: boolean;
+  
+  /**
+   * Whether the text is underlined
+   */
+  underline?: boolean;
+  
+  /**
+   * Click handler for the text
+   */
+  onClick?: () => void;
   
   /**
    * Additional CSS class names
