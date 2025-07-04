@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   app:
     container_name: wang_yue_coding_assignment12
@@ -7,7 +5,5 @@ services:
       context: .
       dockerfile: Dockerfile
     ports:
-      - "8083:3000"
-    volumes:
-      - ./wang_yue_ui_garden/src:/wang_yue_ui_garden/src
+      - "8083:8083"
     restart: unless-stopped

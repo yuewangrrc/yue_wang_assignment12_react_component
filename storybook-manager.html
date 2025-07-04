@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>Yue Wang's UI Garden - Storybook</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="shortcut icon" href="./favicon.ico" />
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Nunito Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        #storybook-root {
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+        }
+        #sidebar {
+            width: 300px;
+            background: #f6f9fc;
+            border-right: 1px solid #e3e8ed;
+            overflow-y: auto;
+        }
+        #main {
+            flex: 1;
+            position: relative;
+        }
+        #preview-iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        .story-list {
+            padding: 20px;
+        }
+        .story-item {
+            padding: 8px 12px;
+            cursor: pointer;
+            border-radius: 4px;
+            margin: 2px 0;
+            font-size: 14px;
+        }
+        .story-item:hover {
+            background: #e3f2fd;
+        }
+        .story-item.active {
+            background: #1976d2;
+            color: white;
+        }
+        .story-group {
+            font-weight: bold;
+            margin: 16px 0 8px 0;
+            color: #333;
+        }
+        .loading {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            font-size: 16px;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <div id="storybook-root">
+        <div id="sidebar">
+            <div class="story-list">
+                <div class="story-group">Yue Wang UI Garden</div>
+                <div class="loading" id="loading">Loading stories...</div>
+            </div>
+        </div>
+        <div id="main">
+            <iframe id="preview-iframe" src="./iframe.html"></iframe>
+        </div>
+    </div>
+    
+    <script>
+        // Load stories from index.json
+        fetch('./index.json')
+            .then(response => response.json())
+            .then(data => {
+                const stories = data.entries;
+                const sidebar = document.querySelector('.story-list');
+                const loadingEl = document.getElementById('loading');
+                
+                if (loadingEl) {
+                    loadingEl.remove();
+                }
+                
+                // Group stories by title
+                const groups = {};
+                Object.values(stories).forEach(story => {
+                    if (story.type === 'story') {
+                        const group = story.title;
+                        if (!groups[group]) {
+                            groups[group] = [];
+                        }
+                        groups[group].push(story);
+                    }
+                });
+                
+                // Render story groups
+                Object.keys(groups).forEach(groupName => {
+                    const groupEl = document.createElement('div');
+                    groupEl.className = 'story-group';
+                    groupEl.textContent = groupName;
+                    sidebar.appendChild(groupEl);
+                    
+                    groups[groupName].forEach((story, index) => {
+                        const storyEl = document.createElement('div');
+                        storyEl.className = 'story-item';
+                        storyEl.textContent = story.name;
+                        storyEl.onclick = () => {
+                            // Remove active class from all items
+                            document.querySelectorAll('.story-item').forEach(el => {
+                                el.classList.remove('active');
+                            });
+                            // Add active class to clicked item
+                            storyEl.classList.add('active');
+                            // Update iframe src
+                            const iframe = document.getElementById('preview-iframe');
+                            iframe.src = `./iframe.html?id=${story.id}&viewMode=story`;
+                        };
+                        
+                        // Make first story active by default
+                        if (Object.keys(groups)[0] === groupName && index === 0) {
+                            storyEl.classList.add('active');
+                            const iframe = document.getElementById('preview-iframe');
+                            iframe.src = `./iframe.html?id=${story.id}&viewMode=story`;
+                        }
+                        
+                        sidebar.appendChild(storyEl);
+                    });
+                });
+            })
+            .catch(error => {
+                console.error('Failed to load stories:', error);
+                const loadingEl = document.getElementById('loading');
+                if (loadingEl) {
+                    loadingEl.textContent = 'Failed to load stories. Check console for details.';
+                }
+            });
+    </script>
+</body>
+</html>

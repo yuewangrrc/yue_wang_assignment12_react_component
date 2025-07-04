@@ -6,4 +6,11 @@ export const parameters = {
       date: /Date$/,
     },
   },
+  docs: {
+    description: {
+      component: 'Yue Wang\'s UI Garden components for Assignment 12',
+    },
+  },
 };
+
+export const tags = ['autodocs'];
